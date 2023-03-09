@@ -1,5 +1,3 @@
-
-import Link from "next/link";
 import { createClient } from "./(components)/utils/supabase-server";
 
 export default async function Home() {
