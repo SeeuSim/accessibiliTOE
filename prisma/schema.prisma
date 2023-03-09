@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String      @id @default(cuid())
+  created_at        DateTime    @default(now())
+
+  name              String
+  email             String
+  password          String
+  verified          Boolean     @default(false)
+  email_verified    DateTime?
+  moves             Move[]
+}
+
+model Game {
+  id                String      @id @default(cuid())
+  created_at        DateTime    @default(now())
+  moves             Move[]
+}
+
+model Move {
+  id                String      @id @default(cuid())
+  dt                DateTime    @default(now())
+  square            Int
+  starting_player   Boolean     @default(false)
+  player_id         String
+  player            User        @relation(fields: [player_id], references: [id], onDelete: Cascade)
+  game_id           String
+  game              Game        @relation(fields: [game_id], references: [id], onDelete: Cascade)
+}
