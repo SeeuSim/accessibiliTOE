@@ -1,18 +1,32 @@
-import './globals.css';
+import 'server-only';
+import NavBar from './(components)/ui/nav';
 
-export const metadata = {
-  title: 'Accessibili-TOE',
-  description: 'Tic-Tac-Toe for ALL',
-}
+import SupabaseListener from './(components)/utils/supabase-listener';
+import SupabaseProvider from './(components)/utils/supabase-provider';
+import { createClient } from './(components)/utils/supabase-server';
 
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
+import './globals.css'
+
+// do not cache this layout
+export const revalidate = 0;
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const supabase = createClient();
+
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head />
+      <body>
+        <SupabaseProvider session={session}>
+          <SupabaseListener serverAccessToken={session?.access_token} />
+          <NavBar session={session}/>
+          {children}
+        </SupabaseProvider>
+      </body>
     </html>
-  )
+  );
 }

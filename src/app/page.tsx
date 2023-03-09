@@ -1,14 +1,21 @@
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "./api/auth/[...nextauth]";
 
+import Link from "next/link";
+import { createClient } from "./(components)/utils/supabase-server";
 
 export default async function Home() {
-  const user = await getServerSession(authOptions);
+  const supabase = createClient();
+  const { data: { session }, error } = await supabase.auth.getSession();
+
   return (
-    <main className="font-bold text-blue-800">
+    <div className="font-bold text-blue-800">
+      <div>
       Welcome to Accessibili-TOE
-      
+      <br/>
       Start a Game
-    </main>
+      <br/>
+      Join a Game
+      </div>
+      
+    </div>
   )
 }
