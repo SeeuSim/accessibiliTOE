@@ -1,5 +1,9 @@
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "./api/auth/[...nextauth]";
 
-export default function Home() {
+
+export default async function Home() {
+  const user = await getServerSession(authOptions);
   return (
     <main className="font-bold text-blue-800">
       Welcome to Accessibili-TOE
