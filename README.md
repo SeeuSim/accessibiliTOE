@@ -15,6 +15,13 @@ Give it a try!
 
 @Author [SeeuSim](https://github.com/SeeuSim)
 
+## Table of Contents
+
+- [User Flow, and UI/UX](#user-flows)
+- [Setup](#setup-guide)
+- [Tech Stack](#infrastructure)
+- [Development Guide](#development-guide)
+
 ## User Flows
   
   - `/` -> `/login`: "Start Match"
