@@ -2,11 +2,20 @@
 
 import { Session } from "@supabase/auth-helpers-nextjs";
 import Link from "next/link"
+import { useSupabase } from "../utils/supabase-provider";
 
 export default function NavBar({ session }: { session: Session | null }) {
+  const { supabase } = useSupabase();
   const authButtons = session
-    ? [{label: "Profile", href: "/user"}, {label: "Logout", href: "/?logout=True"}]
+    ? [{label: "Profile", href: "/user"}, {label: "Logout", href: "/?logout=True", logout: true}]
     : [{label: "Login", href: "/login"}, {label: "Signup", href: "/signup"}];
+
+  async function logoutCallback() {
+    await Promise.all([
+      supabase.auth.signOut(),
+      supabase.auth.stopAutoRefresh()
+    ]);
+  }
 
   return (
     <div className="w-screen">
@@ -21,6 +30,11 @@ export default function NavBar({ session }: { session: Session | null }) {
             {authButtons.map((i, idx) => 
               <Link 
                 href={`${i.href}`}
+                onClick={() => {
+                  i.logout
+                    ? logoutCallback()
+                    : null;
+                }}
                 className={`p-6 sm:p-8 w-1/2 h-full text-center place-items-center font-bold text-lg sm:text-2xl bg-slate-${200 + idx * 100} text-blue-600 hover:bg-slate-400 hover:text-blue-700 hover:z-20 hover:shadow-md`}>
                 {i.label}
               </Link>
