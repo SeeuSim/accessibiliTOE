@@ -156,7 +156,7 @@ Here are a few conventions:
     
     This only posts the user's email and password in a JSON string, hence POSTMAN requests should be formatted as such.
 
-  As React Server and Client components complicate data fetching with unstandardized use of `asnyc`, it is recommended to use TRPC endpoints instead.
+  As React Server and Client components complicate data fetching with unstandardized use of `async`, it is recommended to use TRPC endpoints instead.
 
 - UI Components for the Board
   
