@@ -1,12 +1,19 @@
 'use client'
 import { useSupabase } from "app/(components)/utils/supabase-provider";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function JoinSession() {
   const { supabase, session } = useSupabase();
   const router = useRouter();
 
   if (!session) return router.push("/login");
+
+  const [num, setNum] = useState<string>();
+  const onSessionNumEnter = (e: any) => {
+    e.preventDefault();
+    console.log(num);
+  }
 
   return (
     <main className="h-[100vh] w-screen">
@@ -23,6 +30,16 @@ export default function JoinSession() {
             <span className="text-4xl font-bold">
               Join a session
             </span>
+            <div>
+              <span>Enter Session Number:</span>
+              <div>
+                <input 
+                  type="text" 
+                  onChange={(e) => setNum(e.target.value)}
+                  onKeyUp={(e) => e.key === "13" ? onSessionNumEnter(e) : null}/>
+                <button onClick={(e) => onSessionNumEnter(e)}>Enter</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

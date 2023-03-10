@@ -37,39 +37,47 @@ export function Board() {
   }
   
   return (
-    <div className="grid grid-cols-3 grid-rows-3 gap-y-1 gap-x-1 w-[82vw] md:w-[58vw] lg:w-[43vw]">
-      {
-        cells.map((i, idx) => 
-          <Cell
-            key={idx} 
-            value={i}
-            disabled={!interactive}
-            onClick={()=> {
-              if (winCondition(p1) || winCondition(p2)) {
-                if (!interactive) setInteractive(false);
-                //TOAST GAME WON
-                console.log("Game is over");
-                return;
-              }
+    <div className="flex justify-center">
+      <div className="grid grid-cols-3 grid-rows-3 gap-y-1 gap-x-1 w-[82vw] md:w-[58vw] lg:w-[43vw]">
+        {
+          cells.map((i, idx) => 
+            <Cell
+              key={idx} 
+              value={i}
+              disabled={!interactive || p1.has(i) || p2.has(i)}
+              onClick={()=> {
+                if (winCondition(p1) || winCondition(p2)) {
+                  if (!interactive) setInteractive(false);
+                  //TOAST GAME WON
+                  console.log("Game is over");
+                  return;
+                }
 
-              if (p1turn && !p1.has(i)) {
-                p1.add(i);
-              } else if (!p1turn && !p2.has(i)) {
-                p2.add(i);
-              }
+                if (p1turn) {
+                  if (p1.has(i)) return;
+                  p1.add(i);
+                } else if (!p1turn) {
+                  if (p2.has(i)) return;
+                  p2.add(i);
+                }
 
-              setP1Turn(!p1turn);
-            }}
-            >
-              <p>{p1.has(i)
-                ? "X"
-                : p2.has(i)
-                ? "O"
-                : ""
-              }</p>
-            </Cell>
-          )
-      }
+                setP1Turn(!p1turn);
+              }}
+              >
+                
+                <p className="text-8xl font-bold m-auto translate-y-1/4">
+                  {p1.has(i)
+                    ? "X"
+                    : p2.has(i)
+                    ? "O"
+                    : ""
+                  }
+                </p>
+                
+              </Cell>
+            )
+        }
+      </div>
     </div>
   )
 }

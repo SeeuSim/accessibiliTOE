@@ -6,8 +6,8 @@ export default function GamePage() {
 
 
   return (
-    <div className="pt-2 flex justify-center">
-    <Board/>
+    <div className="pt-2">
+      <Board/>
     </div>
   );
 }
