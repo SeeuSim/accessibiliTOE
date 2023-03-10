@@ -79,7 +79,6 @@ export function Board({
 
   const sendMoves = trpc.game.sendMove.useMutation();
   const handleSubmit = (e: number) => {
-    console.log(session?.user.email)
     if (!session) return;
     sendMoves.mutate({
       cell: e,
