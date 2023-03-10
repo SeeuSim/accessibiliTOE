@@ -37,7 +37,8 @@ Give it a try!
     Join games, or create them. As of now, the message subscribing is a little buggy, hence a little more waiting is needed for the logic to flow. 
     Nevertheless, upon `creation` of a room, it should set the creator as Player 1 "X" and the one who joins as Player 2 "O".
 
-    Users can create rooms, and join rooms with the ID. For now, the QR Code feature is still buggy as the absolute link has not been added.
+    Users can create rooms, and join rooms with the ID. For now, the QR Code feature is still buggy as the message passing between
+    sessions has not been fixed properly.
 
   - `/joinSession/$id` -> `/game/$id?player=$player_num`
 

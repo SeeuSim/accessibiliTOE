@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { useSupabase } from "app/(components)/utils/supabase-provider";
 import { trpc } from "providers/trpcProvider";
+import { getBaseUrl } from "providers/trpcProvider";
 
 export default function WaitingRoom({ 
   params
@@ -31,8 +32,6 @@ export default function WaitingRoom({
     retryDelay: 500
   });
 
-  const hyperlink = <Link href={`joinSession/${params.id}`}/>
-  
   if (!session) return router.push("/login");
 
   return (
@@ -45,7 +44,7 @@ export default function WaitingRoom({
         <br/>
 
         To join, scan this QR:<br/>
-        <QRCode className="h-40 w-40 mt-4 mx-auto" value={hyperlink.props.href}/><br/>
+        <QRCode className="h-40 w-40 mt-4 mx-auto" value={`${getBaseUrl()}/joinSession/${params.id}`}/><br/>
         Click <strong>anywhere</strong> to refresh.
       </div>
     </main>
