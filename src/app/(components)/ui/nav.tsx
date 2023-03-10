@@ -28,7 +28,8 @@ export default function NavBar({ session }: { session: Session | null }) {
           </Link>
           <div className="right-0 mr-2 flex w-1/2 h-full">
             {authButtons.map((i, idx) => 
-              <Link 
+              <Link
+                key={idx} 
                 href={`${i.href}`}
                 onClick={() => {
                   i.logout
