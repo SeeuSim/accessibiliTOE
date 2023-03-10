@@ -4,6 +4,7 @@ import NavBar from './(components)/ui/nav';
 import SupabaseListener from './(components)/utils/supabase-listener';
 import SupabaseProvider from './(components)/utils/supabase-provider';
 import { createClient } from './(components)/utils/supabase-server';
+import { TRPCProvider } from 'providers/trpcProvider';
 
 import './globals.css'
 
@@ -20,11 +21,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html lang="en">
       <head />
       <body>
-        <SupabaseProvider session={session}>
-          <SupabaseListener serverAccessToken={session?.access_token} />
-          <NavBar session={session}/>
-          {children}
-        </SupabaseProvider>
+        <TRPCProvider>
+          <SupabaseProvider session={session}>
+            <SupabaseListener serverAccessToken={session?.access_token} />
+            <NavBar session={session}/>
+            {children}
+          </SupabaseProvider>
+        </TRPCProvider>
       </body>
     </html>
   );

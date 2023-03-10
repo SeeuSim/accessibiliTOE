@@ -1,14 +1,46 @@
 'use client'
 
+import { Move } from "@prisma/client";
+import { trpc } from "providers/trpcProvider";
 import { useState } from "react";
 import Cell from "./cell"
 
-export function Board() {
+export function Board({
+  player,
+  game
+}: {
+  player: number,
+  game: string
+}) {
   const cells = [1, 2, 3, 4, 5, 6, 7, 8, 9]
   const [p1turn, setP1Turn] = useState(true);
   const [interactive, setInteractive] = useState(true);
   const [p1, setP1] = useState(new Set<number>());
   const [p2, setP2] = useState(new Set<number>());
+  const [moves, setMoves] = useState<Move[]>();
+
+  const fetchMoves = trpc.game.getMoves.useQuery({
+    game_id: Number.parseInt(game)
+  }, {
+    onSuccess(data) {
+      if (data) {
+        setMoves(data.data);
+        setP1Turn(!p1turn)
+      }
+    },
+    refetchInterval: 200
+  });
+
+  const sendMoves = trpc.game.sendMove.useMutation();
+  const handleSubmit = (e: number) => {
+    sendMoves.mutate({
+      cell: e,
+      player_id: player.toString(),
+      game_id: Number.parseInt(game)
+    })
+  }
+
+
   /*
   | 1 | 2 | 3 |
   -------------
@@ -53,14 +85,15 @@ export function Board() {
                   return;
                 }
 
-                if (p1turn) {
+                if (p1turn && player == 1) {
                   if (p1.has(i)) return;
+                  handleSubmit(i);
                   p1.add(i);
-                } else if (!p1turn) {
+                } else if (!p1turn && player == 2) {
                   if (p2.has(i)) return;
+                  handleSubmit(i)
                   p2.add(i);
                 }
-
                 setP1Turn(!p1turn);
               }}
               >
