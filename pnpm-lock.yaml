@@ -5,6 +5,7 @@ specifiers:
   '@reduxjs/toolkit': ^1.9.3
   '@supabase/auth-helpers-nextjs': ^0.5.6
   '@supabase/supabase-js': ^2.10.0
+  '@tanstack/react-query': ^4.26.1
   '@types/bcrypt': ^5.0.0
   '@types/node': 18.14.6
   '@types/react': 18.0.28
@@ -19,6 +20,7 @@ specifiers:
   prisma: ^4.11.0
   react: 18.2.0
   react-dom: 18.2.0
+  react-qr-code: ^2.0.11
   server-only: ^0.0.1
   tailwindcss: ^3.2.7
   typescript: 4.9.5
@@ -29,6 +31,7 @@ dependencies:
   '@reduxjs/toolkit': 1.9.3_react@18.2.0
   '@supabase/auth-helpers-nextjs': 0.5.6_ku2vntnma2imfrsyohnkxzette
   '@supabase/supabase-js': 2.10.0_encoding@0.1.13
+  '@tanstack/react-query': 4.26.1_biqbaboplfbrettd7655fr4n2y
   '@types/node': 18.14.6
   '@types/react': 18.0.28
   '@types/react-dom': 18.0.11
@@ -39,6 +42,7 @@ dependencies:
   next: 13.2.3_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
+  react-qr-code: 2.0.11_react@18.2.0
   server-only: 0.0.1
   typescript: 4.9.5
   zod: 3.21.4
@@ -396,6 +400,28 @@ packages:
     resolution: {integrity: sha512-4C7nX/dvpzB7za4Ql9K81xK3HPxCpHMgwTZVyf+9JQ6VUbn9jjZVN7/Nkdz/Ugzs2CSjqnL/UPXroiVBVHUWUw==}
     dependencies:
       tslib: 2.5.0
+    dev: false
+
+  /@tanstack/query-core/4.26.1:
+    resolution: {integrity: sha512-Zrx2pVQUP4ndnsu6+K/m8zerXSVY8QM+YSbxA1/jbBY21GeCd5oKfYl92oXPK0hPEUtoNuunIdiq0ZMqLos+Zg==}
+    dev: false
+
+  /@tanstack/react-query/4.26.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-i3dnz4TOARGIXrXQ5P7S25Zfi4noii/bxhcwPurh2nrf5EUCcAt/95TB2HSmMweUBx206yIMWUMEQ7ptd6zwDg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.26.1
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
     dev: false
 
   /@types/bcrypt/5.0.0:
@@ -2450,6 +2476,10 @@ packages:
     engines: {node: '>=6'}
     dev: false
 
+  /qr.js/0.0.0:
+    resolution: {integrity: sha512-c4iYnWb+k2E+vYpRimHqSu575b1/wKl4XFeJGpFmrJQz5I88v9aY2czh7s0w36srfCM1sXgC/xpoJz5dJfq+OQ==}
+    dev: false
+
   /queue-microtask/1.2.3:
     resolution: {integrity: sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==}
 
@@ -2470,6 +2500,20 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+    dev: false
+
+  /react-qr-code/2.0.11_react@18.2.0:
+    resolution: {integrity: sha512-P7mvVM5vk9NjGdHMt4Z0KWeeJYwRAtonHTghZT2r+AASinLUUKQ9wfsGH2lPKsT++gps7hXmaiMGRvwTDEL9OA==}
+    peerDependencies:
+      react: ^16.x || ^17.x || ^18.x
+      react-native-svg: '*'
+    peerDependenciesMeta:
+      react-native-svg:
+        optional: true
+    dependencies:
+      prop-types: 15.8.1
+      qr.js: 0.0.0
+      react: 18.2.0
     dev: false
 
   /react/18.2.0:
@@ -2923,6 +2967,14 @@ packages:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
     dependencies:
       punycode: 2.3.0
+    dev: false
+
+  /use-sync-external-store/1.2.0_react@18.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /utf-8-validate/5.0.10:

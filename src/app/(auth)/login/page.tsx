@@ -17,7 +17,7 @@ export default function LoginPage() {
     () => {
       if (session != null) return router.push("/user");
     },
-    [session]
+    []
   );
 
   async function signInCallback(e:any) {
