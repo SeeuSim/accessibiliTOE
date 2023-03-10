@@ -82,15 +82,29 @@ export const gameRouter = router({
     sendMove: procedure
       .input(zod.object({
         cell: zod.number(),
-        player_id: zod.string(),
-        game_id: zod.number()
+        player_email: zod.string(),
+        game_id: zod.number(),
+        starting: zod.boolean()
       }))
       .mutation(async({ctx, input: userObject}) => {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: userObject.player_email
+          }
+        })
+        if (!user) return false;
+        const moveIllegal = await prisma.move.count({
+          where: {
+            game_id: userObject.game_id
+          }
+        });
+        if (moveIllegal >= 9) return false;
         const move = await prisma.move.create({
           data: {
-            player_id: userObject.player_id,
+            player_id: user.id,
             game_id: userObject.game_id,
-            square: userObject.cell
+            square: userObject.cell,
+            starting_player: userObject.starting
           }
         });
 
@@ -113,5 +127,21 @@ export const gameRouter = router({
           data: moves
         };
       }),
+    getGames: procedure
+      .input(zod.object({
+        user_email: zod.string()
+      }))
+      .query(async({ctx, input: userObject}) => {
+        const user = await prisma.user.findUnique({
+          where: {
+            email: userObject.user_email
+          },
+          include: {
+            moves: true
+          }
+        });
+        if (!user || !user.moves) return null;
 
+        return { data: user.moves };
+      }),
 })
