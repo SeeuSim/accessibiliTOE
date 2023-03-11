@@ -47,7 +47,7 @@ Give it a try!
   - `/game/$id?player=$player_num`
     
     Upon game start, the two players take turns. The one who started the session goes first as "X". while the other goes as "O".
-    As the data states for the players' turns are a little buggy, no text UI has been catered for this yet.
+    ~~As the data states for the players' turns are a little buggy, no text UI has been catered for this yet.~~ **UPDATE** This has been patched, and there is UI to indicate game state.
 
     Each cell is large and features a visible cell index. This can help screenreaders identify the cell and help the user click on them.
 
