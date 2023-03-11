@@ -45,13 +45,16 @@ export function Board({
      //Cols
      player.has(1) && player.has(4) && player.has(7) ||
      player.has(2) && player.has(5) && player.has(8) ||
-     player.has(3) && player.has(6) && player.has(9) ||
+     player.has(3) && player.has(6) && player.has(9) 
      
      //All Filled
-     p1.size + p2.size >= 9
+    //  p1.size + p2.size >= 9
      ) return true;
      return false;
     }
+
+    const draw = () => p1.size + p2.size >= 9 && !winCondition(p1) && !winCondition(p2);
+
     const evalWin = () => {
       return winCondition(p1) ||
       winCondition(p2);
@@ -103,10 +106,56 @@ export function Board({
     
   }
 
+  const Title = () => {
+    if (!winCondition(p1) && !winCondition(p2) || moves == undefined) {
+      if (moves == undefined && player == 1 || moves != undefined && moves.length % 2 != player % 2) {
+        return (
+          <div>
+            You are: <strong>{ player == 2 ? "O" : "X"}</strong><br/>
+            <br/>
+            <strong>
+            Your Turn
+            </strong>
+          </div>
+        )
+      } else {
+        return (
+          <div>
+            You are: <strong>{ player == 2 ? "O" : "X"}</strong><br/>
+            <strong>
+            Other Player Turn
+            </strong>
+          </div>
+        )
+      }
+    } 
+    return (
+      <div>
+        <p>{evalWin().valueOf()}</p>
+        Game Finished: 
+        <p className="font-black">{
+          draw()
+            ? "Draw"
+            : player == 2 && winCondition(p2) || winCondition(p1) && player == 1
+            ? "You Won"
+            : "Other Player Won"
+        }</p>
+        <br/>
+        You were: 
+        <p className="font-black">
+          { player == 2? "O" : "X" }
+        </p>
+      </div>
+    )
+  }
+
 
   
   return (
     <div className="flex justify-center">
+      <div className="mr-4 text-4xl">  
+        <Title/>
+      </div>
       <div className="grid grid-cols-3 grid-rows-3 gap-y-1 gap-x-1 w-[82vw] md:w-[58vw] lg:w-[43vw]">
         {
           cells.map((i, idx) => 
